@@ -19,7 +19,7 @@ server.get('/', (req, res) => {
 const apiRouter = require('./routes/api');
 
 // SEND API CALLS TO API ROUTER
-server.get('/api', apiRouter);
+server.use('/api', apiRouter);
 
 // ERROR HANDLER
 server.use((err, req, res, next) => {
