@@ -46,7 +46,6 @@ userController.requestToken = async (req, res, next) => {
       // console.log(response.data.access_token);
       res.redirect(`/welcome?access_token=${response.data.access_token}`);
     });
-    next();
   } catch (e) {
     return next({
       log: `Error caught in userController.requestToken. \n Error Message: ${e.errmsg || e}`,
