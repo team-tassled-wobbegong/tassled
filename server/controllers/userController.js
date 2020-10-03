@@ -82,6 +82,7 @@ userController.checkIfUserInDatabase = async (req, res, next) => {
 
   const user = res.locals.userProfile;
   user.full_object = Object.assign({}, res.locals.userProfile);
+  user.access_token = res.locals.access_token;
 
   User.findOneAndUpdate({ id }, { user }, (e, user) => {
     if (e)
@@ -106,6 +107,7 @@ userController.addUserToDatabase = async (req, res, next) => {
   const user = res.locals.userProfile;
   // store entire returned object into DB as backup
   user.full_object = Object.assign({}, res.locals.userProfile);
+  user.access_token = res.locals.access_token;
 
   User.create(( user ), (e, user) => {
     if (e) return next({
