@@ -1,1 +1,8 @@
 @import '../NavBar/navbar';
+@import '../Hero/hero';
+@import '../CardsList/cards_list';
+@import '../Card/card';
+
+main {
+  padding: 0 2rem;
+}
