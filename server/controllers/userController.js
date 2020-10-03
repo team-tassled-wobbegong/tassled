@@ -1,3 +1,5 @@
+const mongoose = require('mongoose');
+const db = require('../models/schema-models.js');
 const axios = require('axios');
 
 const userController = {};
