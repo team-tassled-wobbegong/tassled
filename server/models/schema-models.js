@@ -1,7 +1,10 @@
 const mongoose = require('mongoose');
 
+// MONGO ACCOUNT INFO:
+// username: Admin
+// password: 7nr9VRR84ofoY86f
 const MONGO_URI =
-	'mongodb+srv://gary1190:tassel123@cluster0.grjtc.mongodb.net/<dbname>?retryWrites=true&w=majority';
+	'mongodb+srv://Admin:7nr9VRR84ofoY86f@cluster0.grjtc.mongodb.net/tasselled-wobegong?retryWrites=true&w=majority';
 
 mongoose
 	.connect(MONGO_URI, {
