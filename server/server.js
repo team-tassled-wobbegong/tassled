@@ -1,10 +1,24 @@
 const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+
 
 // SERVER
 const server = express();
 const PORT = process.env.PORT || 3000;
+
+// DATABASE
+const MONGO_URI = 'mongodb+srv://Admin:7nr9VRR84ofoY86f@cluster0.grjtc.mongodb.net/tasselled-wobegong?retryWrites=true&w=majority';
+mongoose
+	.connect(MONGO_URI, {
+		useNewUrlParser: true,
+		useUnifiedTopology: true,
+		// sets the name of the DB that our collections are part of
+		dbName: 'tasselled-wobegong'
+	})
+	.then(() => console.log('Connected to Mongo DB.'))
+	.catch((err) => console.log(err));
 
 // SET UP
 server.use(bodyParser.json());
