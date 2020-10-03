@@ -1,0 +1,14 @@
+.Intro {
+  display: flex;
+  align-items: center;
+
+  height: 300px;
+
+  .left {
+    width: 70%;
+  }
+
+  .right {
+    width: 30%;
+  }
+}
