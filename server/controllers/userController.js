@@ -67,11 +67,13 @@ userController.addUserToDatabase = async (req, res, next) => {
       log: `Error caught in userController.addUserToDatabase. \n Error Message: ${e.errmsg || e}`,
       message: { err: e.errmsg || e },
     });
+    res.locals.user = user;
     res.locals.userID = user._id;
     return next();
   });
-
 }
+
+userController.checkIfUserInDatabase
 
 // TBD: CREATE NEW USER IN DATABASE
 module.exports = userController;
