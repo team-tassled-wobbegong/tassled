@@ -11,15 +11,20 @@ const PORT = process.env.PORT || 3000;
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: true }));
 
-server.get('/', (req, res) => {
-  res.status(200).json({ message: 'hello' });
-});
-
 // API ROUTER
 const apiRouter = require('./routes/api');
 
 // SEND API CALLS TO API ROUTER
-server.get('/api', apiRouter);
+server.use('/api', apiRouter);
+
+// REGULAR ROUTES
+server.get('/', (req, res) => {
+  res.status(200).json({ message: 'hello' });
+});
+
+server.get('/welcome', (req, res) => {
+  res.status(200).json({ message: 'Successfully authenticated' });
+});
 
 // ERROR HANDLER
 server.use((err, req, res, next) => {
