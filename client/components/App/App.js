@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import './app.scss';
 
-import NavBar from '../NavBar';
+import NavBar from '../NavBar/NavBar';
+import Hero from '../Hero/Hero';
+import ChooseStack from '../ChooseStack/ChooseStack';
+import CardsList from '../CardsList/CardsList';
 
 const cardsState = [
   {
