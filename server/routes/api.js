@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
 });
 
 // THIS IS THE MAIN CALLBACK URL FOR GITHUB OAUTH
-router.get('/oauth/callback', userController.authenticateUser, userController.requestToken, userController.addUserToDatabase, (req, res) => {
+router.get('/oauth/callback', userController.authenticateUser, userController.requestToken, userController.checkIfUserInDatabase,userController.addUserToDatabase, (req, res) => {
   res.redirect(`/welcome?access_token=${res.locals.access_token}`);
 });
 
