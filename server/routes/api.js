@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 const userController = require('../controllers/userController');
+const repoController = require('../controllers/repoController');
 
 router.get('/', (req, res) => {
   res.status(200).json({ message: '/api route ping' });
@@ -31,6 +32,12 @@ router.get('/github_app/callback', userController.authenticateUser, userControll
 // GITHUB WEBHOOK
 router.post('/github/webhook', (req, res) => {
   console.log({ req });
-  res.send(200).json({ message: 'pong' });
+  return res.send(200).json({ message: 'pong' });
 });
+
+// GITHUB CREATE REPO
+router.post('/github/repos/create', repoController.createNewRepo, (req, res, next) => {
+  return res.status(200).json(res.locals.repo);
+});
+
 module.exports = router;

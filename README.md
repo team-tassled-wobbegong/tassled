@@ -26,3 +26,12 @@ Generate a public PEM key from a private PEM key. Neccessary to create the JWT u
 ```
 openssl rsa -in fullstack.private-key.pem -pubout
 ```
+
+Available OAuth Scopes
+https://docs.github.com/en/free-pro-team@latest/developers/apps/scopes-for-oauth-apps#available-scopes
+
+Repository API Endpoints
+https://developer.github.com/v3/repos/#create-repository-using-a-repository-template
+
+Repo Endpoint Scope
+https://developer.github.com/v3/repos/#oauth-scope-requirements-1
