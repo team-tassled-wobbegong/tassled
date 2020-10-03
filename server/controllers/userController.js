@@ -1,7 +1,8 @@
-const mongoose = require('mongoose');
-const { User, UserConfig, UserConfig } = require('../models/schema-models.js');
-const db = require('../models/schema-models.js');
 const axios = require('axios');
+
+const db = require('../models/schema-models.js');
+
+const { User, UserConfig } = require('../models/schema-models.js');
 
 const userController = {};
 

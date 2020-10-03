@@ -4,17 +4,17 @@ const mongoose = require('mongoose');
 // username: Admin
 // password: 7nr9VRR84ofoY86f
 const MONGO_URI =
-	'mongodb+srv://Admin:7nr9VRR84ofoY86f@cluster0.grjtc.mongodb.net/tasselled-wobegong?retryWrites=true&w=majority';
+  'mongodb+srv://Admin:7nr9VRR84ofoY86f@cluster0.grjtc.mongodb.net/tasselled-wobegong?retryWrites=true&w=majority';
 
 mongoose
-	.connect(MONGO_URI, {
-		useNewUrlParser: true,
-		useUnifiedTopology: true,
-		// sets the name of the DB that our collections are part of
-		dbName: 'tasselled-wobegong'
-	})
-	.then(() => console.log('Connected to Mongo DB.'))
-	.catch((err) => console.log(err));
+  .connect(MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    // sets the name of the DB that our collections are part of
+    dbName: 'tasselled-wobegong',
+  })
+  .then(() => console.log('Connected to Mongo DB.'))
+  .catch((err) => console.log(err));
 
 const Schema = mongoose.Schema;
 
@@ -27,7 +27,7 @@ const usersSchema = new Schema({
   gh_url: String,
   access_token: String,
   created_at: { type: Date, default: Date.now },
-  configurations: [{ type: Schema.Types.ObjectId, ref: 'UserConfig' }]
+  configurations: [{ type: Schema.Types.ObjectId, ref: 'UserConfig' }],
 });
 
 const User = mongoose.model('users', usersSchema);
@@ -39,7 +39,7 @@ const usersConfigSchema = new Schema({
   react: { type: Boolean, default: false },
   express: { type: Boolean, default: false },
   jest: { type: Boolean, default: false },
-  mongoose: { type: Boolean, default: false }
+  mongoose: { type: Boolean, default: false },
 });
 
 const UserConfig = mongoose.model('userConfigs', usersConfigSchema);
@@ -51,7 +51,7 @@ const templateConfigSchema = new Schema({
   react: { type: Boolean, default: false },
   express: { type: Boolean, default: false },
   jest: { type: Boolean, default: false },
-  mongoose: { type: Boolean, default: false }
+  mongoose: { type: Boolean, default: false },
 });
 
 const TemplateConfig = mongoose.model('templateConfigs', templateConfigSchema);
@@ -61,4 +61,4 @@ module.exports = {
   User,
   UserConfig,
   TemplateConfig,
-}
+};
