@@ -1,9 +1,10 @@
-import { Octokit } from '@octokit/core';
-const { User } = require('../models/schema-models.js');
+const { Octokit } = require('@octokit/core');
+
+// const { User } = require('../models/schema-models.js');
 
 const repoController = {};
 
-repoContoller.createNewRepo = async (req, res, next) => {
+repoController.createNewRepo = async (req, res, next) => {
   // HARD CODED ACCESS TOKEN, NEEDS TO BE FIXED
   const hardCodedToken = '5898b61addad0552529ed60dc0f0346c887757d0';
 
@@ -17,12 +18,16 @@ repoContoller.createNewRepo = async (req, res, next) => {
       {
         template_owner: 'team-tassled-wobbegong',
         template_repo: 'best-of-the-best',
-        name: 'The custom template name goes here',
+        name: 'Another custom template name goes here',
         mediaType: {
           previews: ['baptiste'],
         },
       },
     );
+    console.log('REPOS RESPONSE');
+    console.log({ response });
+    res.locals.repo = response;
+
     return next();
   } catch (e) {
     return next({
