@@ -1,5 +1,4 @@
-const mongoose = require('mongoose');
-const { User, UserConfig, TemplateConfig } = require('../models/schema-models.js');
+const User = require('../models/userModels');
 const axios = require('axios');
 
 const userController = {};
@@ -55,7 +54,7 @@ userController.requestToken = async (req, res, next) => {
 userController.addUserToDatabase = async (req, res, next) => {
   // temporary placeholder for adding user
   const user = {
-    user_name: "gary",
+    user_name: "test",
     first_name: "temp",
     last_name: "temp",
     avatar: "temp",
@@ -93,5 +92,4 @@ userController.checkIfUserInDatabase = async (req, res, next) => {
   });
 }
 
-// TBD: CREATE NEW USER IN DATABASE
 module.exports = userController;
