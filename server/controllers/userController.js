@@ -3,8 +3,7 @@ const axios = require('axios');
 const userController = {};
 
 userController.authenticateUser = async (req, res, next) => {
-  // TBD: CREATE RANDOM UNGUESSABLE STRING
-  // random string used for testing Oauth, will need a real random string per request at some point
+  // TBD: CREATE RANDOM UNGUESSABLE STRING, HARD CODED FOR NOW
   const randomString = '9323bb9ce6934469b58303863f8c0d54';
 
   try {
@@ -15,7 +14,7 @@ userController.authenticateUser = async (req, res, next) => {
       return res.status(401).send('Unauthorized request');
     }
 
-    // pass auth code to next middleware
+    // SAVE TEMPORARY AUTH CODE
     res.locals.authCode = code;
 
     return next();
@@ -40,7 +39,7 @@ userController.requestToken = async (req, res, next) => {
         accept: 'application/json',
       },
     }).then((response) => {
-      console.log(response.data.access_token);
+      // console.log(response.data.access_token);
       res.redirect(`/welcome?access_token=${response.data.access_token}`);
     });
     next();

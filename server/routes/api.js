@@ -1,5 +1,4 @@
 const express = require('express');
-const axios = require('axios');
 
 const router = express.Router();
 
@@ -10,16 +9,6 @@ router.get('/', (req, res) => {
 });
 
 // THIS IS THE MAIN CALLBACK URL FOR GITHUB OAUTH
-router.get(
-  '/oauth/callback',
-  userController.authenticateUser,
-  userController.requestToken,
-  (req, res, next) => {
-    // HANDLE API CALLBACK
-    // console.log('LOCALS in final', res.locals.access_token);
-    console.log('DONE');
-    // res.redirect(`/welcome?access_token=${res.locals.access_token}`);
-  },
-);
+router.get('/oauth/callback', userController.authenticateUser, userController.requestToken);
 
 module.exports = router;
