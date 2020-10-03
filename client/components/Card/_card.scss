@@ -1,0 +1,16 @@
+.Card {
+  background-color: #393939;
+  font-family: 'IBM Plex Mono', monospace;
+  margin-right: 1rem;
+  padding: 1rem;
+  width: 250px;
+
+  .title {
+    margin-bottom: 1rem;
+  }
+}
+
+.Card:hover {
+  background-color: #696969;
+  cursor: pointer;
+}
