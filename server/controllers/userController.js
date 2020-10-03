@@ -3,7 +3,7 @@ const axios = require('axios');
 const userController = {};
 
 userController.authenticateUser = async (req, res, next) => {
-  //random string used for testing Oauth, will need a real random string per request at some point
+  // random string used for testing Oauth, will need a real random string per request at some point
   const randomTestId = '9323bb9ce6934469b58303863f8c0d54';
 
   try {
@@ -33,10 +33,7 @@ userController.requestToken = async (req, res, next) => {
     const config = {
       method: 'post',
       url: `https://github.com/login/oauth/access_token?code=${authCode}`,
-      headers: {
-        Cookie:
-          'lidc="b=VB90:g=2747:u=1046:i=1601503033:t=1601580395:s=AQGe8maPoEo1ticrEYcAr0bZsxHNac8I"; lang=v=2&lang=en-us; bcookie="v=2&3dc45d09-3eab-495c-8824-57f4ce7fed7b"; lissc=1; lidc="b=VB90:g=2747:u=1046:i=1601502758:t=1601580395:s=AQFl3qKQy82R2oRI1648QSHavqDrhnR1"',
-      },
+      headers: {},
     };
 
     return axios(config)
@@ -44,11 +41,11 @@ userController.requestToken = async (req, res, next) => {
       .catch((e) => console.log(e));
   }
 
-  //Make the request
+  // Make the request
   const data = await getToken(res.locals.authCode);
   console.log('DATA', { data });
 
-  //RESPONSE PAYLOAD
+  // RESPONSE PAYLOAD
   // just a get request to our redirecturl, we have to pick the query params off
   const { access_token, token_type } = res.query;
 
