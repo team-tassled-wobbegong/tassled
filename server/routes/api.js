@@ -9,17 +9,16 @@ router.get('/', (req, res) => {
   res.status(200).json({ message: '/api route ping' });
 });
 
-router.get('/callback', userController.authenticateUser, (req, res, next) => {
-  // HANDLE API CALLBACK
-  res.status(200).json({ message: 'received callback' });
-});
-
+// THIS IS THE MAIN CALLBACK URL FOR GITHUB OAUTH
 router.get(
-  '/callback/auth_code',
+  '/oauth/callback',
+  userController.authenticateUser,
   userController.requestToken,
-  userController.accessAPI,
-  async (req, res, next) => {
-    res.status(200).json({ message: 'accessAPI completed' });
+  (req, res, next) => {
+    // HANDLE API CALLBACK
+    // console.log('LOCALS in final', res.locals.access_token);
+    console.log('DONE');
+    // res.redirect(`/welcome?access_token=${res.locals.access_token}`);
   },
 );
 
