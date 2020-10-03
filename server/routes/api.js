@@ -13,9 +13,17 @@ router.post('/', (req, res) => {
 });
 
 // THIS IS THE MAIN CALLBACK URL FOR GITHUB OAUTH
-router.get('/oauth/callback', userController.authenticateUser, userController.requestToken, userController.checkIfUserInDatabase,userController.addUserToDatabase, (req, res) => {
-  res.redirect(`/welcome?access_token=${res.locals.access_token}`);
-});
+router.get(
+  '/oauth/callback',
+  userController.authenticateUser,
+  userController.requestToken,
+  userController.getUserProfile,
+  userController.checkIfUserInDatabase,
+  userController.addUserToDatabase,
+  (req, res) => {
+    res.redirect(`/welcome?access_token=${res.locals.access_token}`);
+  },
+);
 
 // GITHUB APP CALLBACK
 router.get('/github_app/callback', userController.authenticateUser, userController.requestToken);
