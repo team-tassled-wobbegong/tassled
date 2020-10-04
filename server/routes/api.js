@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 const userController = require('../controllers/userController');
+const sessionController = require('../controllers/sessionController');
 
 router.get('/', (req, res) => {
   res.status(200).json({ message: '/api route ping' });
@@ -20,6 +21,7 @@ router.get(
   userController.getUserProfile,
   userController.checkIfUserInDatabase,
   userController.addUserToDatabase,
+  sessionController.createSession,
   (req, res) => {
     res.redirect(`/welcome?access_token=${res.locals.access_token}`);
   },

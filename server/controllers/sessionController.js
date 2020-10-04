@@ -14,7 +14,7 @@ sessionController.isLoggedIn = (req, res, next) => {
   Session.findOne({ cookieId }, (e, session) => {
     if (e) 
       return next({
-        log: `Error caught in userController.checkIfUserInDatabase. \n Error Message: ${
+        log: `Error caught in sessionController.isLoggedIn. \n Error Message: ${
           e.errmsg || e
         }`,
         message: { err: e.errmsg || e },
@@ -23,12 +23,25 @@ sessionController.isLoggedIn = (req, res, next) => {
       return next();
     }
     // if session doesn't exist, where to redirect?
-    return res.redirect('/signup');
+    return res.redirect();
   });
 }
 
-// Verify whether there is a currently valid session
-
+// Create a new session and save into the database and into cookies
+sessionController.createSession = (req, res, next) => {
+  const cookieId = res.locals.userProfile.id;
+  Session.create(({ cookieId }), (e, session) => {
+    if (e) 
+      return next({
+        log: `Error caught in sessionController.isLoggedIn. \n Error Message: ${
+          e.errmsg || e
+        }`,
+        message: { err: e.errmsg || e },
+      });
+  });
+  res.cookie('cookieId',cookieID, { httpOnly: true });
+  return next();
+};
 
 
 
