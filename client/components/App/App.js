@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import './app.scss';
 
-import NavBar from '../NavBar';
-import Hero from '../Hero';
-import ChooseStack from '../ChooseStack';
-import CardsList from '../CardsList';
-import GitHubButton from '../GitHubButton';
+import NavBar from '../NavBar/NavBar';
+import Hero from '../Hero/Hero';
+import ChooseStack from '../ChooseStack/ChooseStack';
+import CardsList from '../CardsList/CardsList';
 
 const cardsState = [
   {
