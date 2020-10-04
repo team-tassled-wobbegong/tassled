@@ -10,7 +10,7 @@ pnpm-lock.yaml
 .eslintcache
 
 # dotenv environment variable files
-.env*
+.env
 
 # Mac files
 .DS_Store
