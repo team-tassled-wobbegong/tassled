@@ -76,7 +76,7 @@ userController.getUserProfile = async (req, res, next) => {
 };
 
 // IF A USER EXISTS => UPDATE THE USER INFO
-// IF A USER DOESNT EXIST => NEXT MIDDLEWARE CREATES A NEW USER
+// IF A USER DOESNT EXIST => CREATE IT
 userController.checkIfUserInDatabase = async (req, res, next) => {
   const id = res.locals.userProfile.id;
 
@@ -84,7 +84,7 @@ userController.checkIfUserInDatabase = async (req, res, next) => {
   user.full_object = Object.assign({}, res.locals.userProfile);
   user.access_token = res.locals.access_token;
 
-  User.findOneAndUpdate({ id }, { user }, (e, user) => {
+  User.findOneAndUpdate({ id }, { user }, {new: true, upsert: true}, (e, user) => {
     if (e)
       return next({
         log: `Error caught in userController.checkIfUserInDatabase. \n Error Message: ${
@@ -93,30 +93,29 @@ userController.checkIfUserInDatabase = async (req, res, next) => {
         message: { err: e.errmsg || e },
       });
     if (user) {
-      // a user exists in our database
-      
-      res.redirect(`/welcome?access_token=${res.locals.access_token}`);
-    } else {
-      // go to next middle ware to create a new user
+      // a user exists in our database save it to res.locals so we can return it
+      res.locals.ghUserInfo = user;
       return next();
     }
   });
 };
 
-userController.addUserToDatabase = async (req, res, next) => {
-  const user = res.locals.userProfile;
-  // store entire returned object into DB as backup
-  user.full_object = Object.assign({}, res.locals.userProfile);
-  user.access_token = res.locals.access_token;
 
-  User.create(( user ), (e, user) => {
-    if (e) return next({
-      log: `Error caught in userController.addUserToDatabase. \n Error Message: ${e.errmsg || e}`,
-      message: { err: e.errmsg || e },
-    });
-    return next();
-  });
-};
+// THE ABOVE MIDDLEWARE UPSERTS NOW, SO NO NEED FOR THIS MIDDLEWARE
+// userController.addUserToDatabase = async (req, res, next) => {
+//   const user = res.locals.userProfile;
+//   // store entire returned object into DB as backup
+//   user.full_object = Object.assign({}, res.locals.userProfile);
+//   user.access_token = res.locals.access_token;
+
+//   User.create(( user ), (e, user) => {
+//     if (e) return next({
+//       log: `Error caught in userController.addUserToDatabase. \n Error Message: ${e.errmsg || e}`,
+//       message: { err: e.errmsg || e },
+//     });
+//     return next();
+//   });
+// };
 
 
 module.exports = userController;

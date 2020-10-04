@@ -20,10 +20,21 @@ router.get(
   userController.requestToken,
   userController.getUserProfile,
   userController.checkIfUserInDatabase,
-  userController.addUserToDatabase,
   sessionController.createSession,
   (req, res) => {
     res.redirect(`/welcome?access_token=${res.locals.access_token}`);
+  },
+);
+
+// CHECK FOR AN ACTIVE SESSION AND RETURN USER INFO
+router.get(
+  '/checksession',
+  // checks if there is active session and the user exists
+  sessionController.isLoggedIn,
+  // get/update user data and send it back to front end
+  userController.checkIfUserInDatabase,
+  (req, res) => {
+    res.status(200).send();
   },
 );
 

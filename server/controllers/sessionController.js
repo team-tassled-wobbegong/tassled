@@ -22,8 +22,8 @@ sessionController.isLoggedIn = (req, res, next) => {
     if (session) {
       return next();
     }
-    // if session doesn't exist, where to redirect?
-    return res.redirect();
+    res.clearCookie('cookieId');
+    return next;
   });
 }
 
