@@ -1,6 +1,5 @@
 const User = require('../models/userModels');
 const axios = require('axios');
-const db = require('../models/schema-models.js');
 
 const userController = {};
 
@@ -30,7 +29,7 @@ userController.authenticateUser = async (req, res, next) => {
 
 userController.requestToken = async (req, res, next) => {
   const clientID = '9736e547efbf758aa0dc';
-  const clientSecret = 'd448899a40b1ec8a954e72344abae29880cec485';
+  const clientSecret = process.env.GITHUB_CLIENT_SECRET;
   const { authCode } = res.locals;
 
   try {
@@ -82,18 +81,19 @@ userController.getUserProfile = async (req, res, next) => {
 userController.addUserToDatabase = async (req, res, next) => {
   // temporary placeholder for adding user
   const user = {
-    user_name: "test",
-    first_name: "temp",
-    last_name: "temp",
-    avatar: "temp",
-    gh_url: "temp",
-    access_token: res.locals.access_token
-  }
-  User.create(( user ), (e, user) => {
-    if (e) return next({
-      log: `Error caught in userController.addUserToDatabase. \n Error Message: ${e.errmsg || e}`,
-      message: { err: e.errmsg || e },
-    });
+    user_name: 'test',
+    first_name: 'temp',
+    last_name: 'temp',
+    avatar: 'temp',
+    gh_url: 'temp',
+    access_token: res.locals.access_token,
+  };
+  User.create(user, (e, user) => {
+    if (e)
+      return next({
+        log: `Error caught in userController.addUserToDatabase. \n Error Message: ${e.errmsg || e}`,
+        message: { err: e.errmsg || e },
+      });
     res.locals.user = user;
     // res.locals.userID = user._id;
     return next();
