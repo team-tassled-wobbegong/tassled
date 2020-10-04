@@ -1,6 +1,7 @@
 const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 
 // SET UP ENV VARIABLES
@@ -27,6 +28,7 @@ mongoose
 // SET UP
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: true }));
+server.use(cookieParser());
 
 // API ROUTER
 const apiRouter = require('./routes/api');
@@ -42,6 +44,7 @@ server.get('/', (req, res) => {
 server.get('/welcome', (req, res) => {
   res.status(200).json({ message: 'Successfully authenticated' });
 });
+
 
 // ERROR HANDLER
 server.use((err, req, res, next) => {
