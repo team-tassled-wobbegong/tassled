@@ -5,6 +5,7 @@ import NavBar from '../NavBar/NavBar';
 import Hero from '../Hero/Hero';
 import ChooseStack from '../ChooseStack/ChooseStack';
 import CardsList from '../CardsList/CardsList';
+import GitHubButton from '../GitHubButton';
 
 const cardsState = [
   {
