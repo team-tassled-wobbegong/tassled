@@ -18,6 +18,7 @@
   "license": "ISC",
   "dependencies": {
     "@babel/plugin-transform-runtime": "7.11.5",
+    "@babel/runtime": "^7.11.2",
     "@octokit/core": "3.1.2",
     "axios": "0.20.0",
     "body-parser": "1.19.0",

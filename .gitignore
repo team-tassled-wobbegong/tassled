@@ -3,6 +3,8 @@ node_modules/
 
 # Optional npm cache directory
 .npm
+.pnpm
+pnpm-lock.yaml
 
 # Optional eslint cache
 .eslintcache
