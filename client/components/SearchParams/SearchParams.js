@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-function SearchParams() {
-  const [repository, setRepository] = useState('');
+function SearchParams({ value, handleChange }) {
   return (
     <div className="search-params">
       <h2>2. Name Your Repo</h2>
@@ -9,9 +8,9 @@ function SearchParams() {
         <input
           type="text"
           id="repository"
-          value={repository}
+          value={value}
           placeholder="Repository Name"
-          onChange={(e) => setRepository(e.target.value)}
+          onChange={handleChange}
         />
       </label>
     </div>
