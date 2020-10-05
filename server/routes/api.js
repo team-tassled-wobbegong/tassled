@@ -44,6 +44,10 @@ router.get(
   },
 );
 
+router.get('/logout', (req, res) => {
+  res.clearCookie('cookieId').status(200).send();
+});
+
 // GITHUB APP CALLBACK
 router.get('/github_app/callback', userController.authenticateUser, userController.requestToken);
 
