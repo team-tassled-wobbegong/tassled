@@ -21,7 +21,7 @@ router.get(
   userController.requestToken,
   userController.getUserProfile,
   userController.checkIfUserInDatabase,
-  sessionController.createSession,
+  // sessionController.createSession,
   (req, res) => {
     res.redirect(`/welcome?access_token=${res.locals.access_token}`);
   },

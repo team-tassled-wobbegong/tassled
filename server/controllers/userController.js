@@ -78,13 +78,15 @@ userController.getUserProfile = async (req, res, next) => {
 // IF A USER EXISTS => UPDATE THE USER INFO
 // IF A USER DOESNT EXIST => CREATE IT
 userController.checkIfUserInDatabase = async (req, res, next) => {
+  console.log('checkIfUserInDatabase');
   const id = res.locals.userProfile.id;
 
   const user = res.locals.userProfile;
   user.full_object = Object.assign({}, res.locals.userProfile);
   user.access_token = res.locals.access_token;
 
-  User.findOneAndUpdate({ id }, { user }, {new: true, upsert: true}, (e, user) => {
+  User.findOneAndUpdate({ id }, { user }, {new: true}, (e, createdUser) => {
+    console.log('findOneAndUpdate');
     if (e)
       return next({
         log: `Error caught in userController.checkIfUserInDatabase. \n Error Message: ${
@@ -92,17 +94,34 @@ userController.checkIfUserInDatabase = async (req, res, next) => {
         }`,
         message: { err: e.errmsg || e },
       });
-    if (user) {
+    if (createdUser) {
       // a user exists in our database save it to res.locals so we can return it
       res.locals.ghUserInfo = user;
       return next();
     }
+    else {
+      User.create({ user },(e, user) => {
+        //if a user does not exist, create it
+        console.log('create');
+        if (e) 
+          return next({
+            log: `Error caught in userController.checkIfUserInDatabase (CREATE). \n Error Message: ${
+              e.errmsg || e
+            }`,
+            message: { err: e.errmsg || e },
+          });
+        res.locals.ghUserInfo = user;
+        console.log(user);
+        return next();
+      });
+    }
   });
-};
+}
 
 userController.locateAccessToken = async (req, res, next) => {
   console.log('userController.locateAccessToken');
   const id = res.locals.cookieId
+  console.log(`cookieId: ${id}`);
 
   User.findOne({ id }, (e, user) => {
     if (e)
@@ -116,6 +135,7 @@ userController.locateAccessToken = async (req, res, next) => {
       // a user exists in our database save it to res.locals so we can return it
       res.locals.userProfile = user;
       res.locals.access_token = user.access_token;
+      console.log (user);
       return next();
     }
   });
