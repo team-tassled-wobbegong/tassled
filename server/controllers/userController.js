@@ -29,7 +29,7 @@ userController.authenticateUser = async (req, res, next) => {
 
 userController.requestToken = async (req, res, next) => {
   const clientID = '9736e547efbf758aa0dc';
-  const clientSecret = 'd448899a40b1ec8a954e72344abae29880cec485';
+  const clientSecret = process.env.GITHUB_CLIENT_SECRET;
   const { authCode } = res.locals;
 
   try {
