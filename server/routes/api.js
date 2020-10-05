@@ -22,7 +22,7 @@ router.get(
   userController.requestToken,
   userController.getUserProfile,
   userController.checkIfUserInDatabase,
-  // sessionController.createSession,
+  sessionController.createSession,
   (req, res) => {
     res.redirect(`/welcome?access_token=${res.locals.access_token}`);
   },
@@ -45,19 +45,6 @@ router.get(
   },
 );
 
-// CREATE A NEW CONFIGURATION TO SEND TO GITHUB
-router.post(
-  '/createconfig',
-    // save the current userInfo to res.locals
-    // create a new Config based on info from the body
-    // Github middleware to create the config
-    // save the return config into res.locals
-  (req, res) => {
-    // send the GH information for the created config
-    res.status(200).send();
-  },
-)
-
 // GITHUB APP CALLBACK
 router.get('/github_app/callback', userController.authenticateUser, userController.requestToken);
 
@@ -68,7 +55,12 @@ router.post('/github/webhook', (req, res) => {
 });
 
 // GITHUB CREATE REPO
-router.post('/github/repos/create', repoController.createNewRepo, (req, res, next) => {
+router.post('/github/repos/create',
+  // save the current userInfo to res.locals
+  // create a new Config based on info from the body
+ repoController.createNewRepo,
+  // save the return config into res.locals
+  (req, res, next) => {
   return res.status(200).json(res.locals.repo);
 });
 
