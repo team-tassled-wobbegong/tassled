@@ -75,8 +75,6 @@ userController.getUserProfile = async (req, res, next) => {
   }
 };
 
-// IF A USER EXISTS => UPDATE THE USER INFO
-// IF A USER DOESNT EXIST => CREATE IT
 userController.checkIfUserInDatabase = async (req, res, next) => {
   console.log('checkIfUserInDatabase');
   const id = res.locals.userProfile.id;
@@ -104,8 +102,7 @@ userController.checkIfUserInDatabase = async (req, res, next) => {
 
 userController.locateAccessToken = async (req, res, next) => {
   console.log('userController.locateAccessToken');
-  const id = res.locals.cookieId
-  console.log(`cookieId: ${id}`);
+  const id = res.locals.cookieId || req.cookies.cookieId;
 
   User.findOne({ id }, (e, user) => {
     if (e)
@@ -119,7 +116,6 @@ userController.locateAccessToken = async (req, res, next) => {
       // a user exists in our database save it to res.locals so we can return it
       res.locals.userProfile = user;
       res.locals.access_token = user.access_token;
-      console.log (user);
       return next();
     }
   });

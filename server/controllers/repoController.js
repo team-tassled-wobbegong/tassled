@@ -6,9 +6,13 @@ const repoController = {};
 
 repoController.createNewRepo = async (req, res, next) => {
   // HARD CODED ACCESS TOKEN, NEEDS TO BE FIXED
+  console.log('hi');
   const hardCodedToken = process.env.TEST_OAUTH_TOKEN;
 
+  // const access_token = res.locals.access_token;
+
   // INITIALIZE GITHUB OCTOKIT
+  // const octokit = new Octokit({ auth: access_token });
   const octokit = new Octokit({ auth: hardCodedToken });
 
   // CREATE REPO FROM TEMPLATE
