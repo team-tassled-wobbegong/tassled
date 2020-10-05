@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 // sets a schema for 'userConfigs'
-const usersConfigSchema = new Schema({
+const configSchema = new Schema({
   name: { type: String, required: true },
   gh_id: String,
   description: String,
@@ -17,4 +17,4 @@ const usersConfigSchema = new Schema({
 });
 
 // exports all the models in an object to be used in the controller
-module.exports = mongoose.model('userConfigs', usersConfigSchema);
+module.exports = mongoose.model('configs', configSchema);

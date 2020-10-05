@@ -7,28 +7,33 @@ const sessionController = {};
 
 // Verify whether there is a currently valid session
 sessionController.isLoggedIn = (req, res, next) => {
-  // if the current user has a cookie with a cookieId
-  const cookieId = req.cookies.cookieId;
-
-  // find the user in our DB
-  Session.findOne({ cookieId }, (e, session) => {
-    if (e) 
+  if(req.cookies.cookieId) {
+    // if the current user has a cookie with a cookieId
+    const cookieId = req.cookies.cookieId;
+    // find the user in our DB
+    Session.findOne({ cookieId }, (e, session) => {
+      if (e) 
       return next({
         log: `Error caught in sessionController.isLoggedIn. \n Error Message: ${
           e.errmsg || e
         }`,
         message: { err: e.errmsg || e },
       });
-    if (session) {
-      return next();
-    }
-    res.clearCookie('cookieId');
-    return next;
-  });
+      if (session) {
+        res.locals.cookieId = cookieId;
+        return next();
+      }
+      return res.clearCookie('cookieId').status(200).send();
+    });
+  } else {
+    // no cookies are present
+    return res.status(200).send();
+  }
 }
 
 // Create a new session and save into the database and into cookies
 sessionController.createSession = (req, res, next) => {
+  console.log('sessionController.createSession');
   const cookieId = res.locals.userProfile.id;
   Session.create(({ cookieId }), (e, session) => {
     if (e) 
@@ -38,9 +43,9 @@ sessionController.createSession = (req, res, next) => {
         }`,
         message: { err: e.errmsg || e },
       });
+      res.cookie('cookieId',cookieId, { httpOnly: true });
+      return next();
   });
-  res.cookie('cookieId',cookieID, { httpOnly: true });
-  return next();
 };
 
 
