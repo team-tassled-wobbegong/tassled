@@ -85,7 +85,7 @@ userController.checkIfUserInDatabase = async (req, res, next) => {
   user.full_object = Object.assign({}, res.locals.userProfile);
   user.access_token = res.locals.access_token;
 
-  User.findOneAndUpdate({ id }, { user }, {new: true}, (e, createdUser) => {
+  User.findOneAndUpdate({ id },  user , {new: true, upsert: true}, (e, createdUser) => {
     console.log('findOneAndUpdate');
     if (e)
       return next({
@@ -98,23 +98,6 @@ userController.checkIfUserInDatabase = async (req, res, next) => {
       // a user exists in our database save it to res.locals so we can return it
       res.locals.ghUserInfo = user;
       return next();
-    }
-    else {
-      User.create({ user },(e, createdUser) => {
-        //if a user does not exist, create it
-        console.log('create');
-        console.log(user);
-        if (e) 
-          return next({
-            log: `Error caught in userController.checkIfUserInDatabase (CREATE). \n Error Message: ${
-              e.errmsg || e
-            }`,
-            message: { err: e.errmsg || e },
-          });
-        res.locals.ghUserInfo = createdUser;
-        console.log(createdUser);
-        return next();
-      });
     }
   });
 }
