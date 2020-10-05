@@ -100,9 +100,10 @@ userController.checkIfUserInDatabase = async (req, res, next) => {
       return next();
     }
     else {
-      User.create({ user },(e, user) => {
+      User.create({ user },(e, createdUser) => {
         //if a user does not exist, create it
         console.log('create');
+        console.log(user);
         if (e) 
           return next({
             log: `Error caught in userController.checkIfUserInDatabase (CREATE). \n Error Message: ${
@@ -110,8 +111,8 @@ userController.checkIfUserInDatabase = async (req, res, next) => {
             }`,
             message: { err: e.errmsg || e },
           });
-        res.locals.ghUserInfo = user;
-        console.log(user);
+        res.locals.ghUserInfo = createdUser;
+        console.log(createdUser);
         return next();
       });
     }

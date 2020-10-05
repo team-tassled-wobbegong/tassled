@@ -13,7 +13,6 @@ const configSchema = new Schema({
   jest: { type: Boolean, default: false },
   mongoose: { type: Boolean, default: false },
   generated_repo_object: Object,
-
 });
 
 // exports all the models in an object to be used in the controller
