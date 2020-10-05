@@ -1,5 +1,6 @@
-const User = require('../models/userModels');
 const axios = require('axios');
+
+const User = require('../models/userModels');
 
 const userController = {};
 
@@ -83,7 +84,7 @@ userController.checkIfUserInDatabase = async (req, res, next) => {
   user.full_object = Object.assign({}, res.locals.userProfile);
   user.access_token = res.locals.access_token;
 
-  User.findOneAndUpdate({ id },  user , {new: true, upsert: true}, (e, createdUser) => {
+  User.findOneAndUpdate({ id }, user, { new: true, upsert: true }, (e, createdUser) => {
     console.log('findOneAndUpdate');
     if (e)
       return next({
@@ -98,7 +99,7 @@ userController.checkIfUserInDatabase = async (req, res, next) => {
       return next();
     }
   });
-}
+};
 
 userController.locateAccessToken = async (req, res, next) => {
   console.log('userController.locateAccessToken');
@@ -107,9 +108,7 @@ userController.locateAccessToken = async (req, res, next) => {
   User.findOne({ id }, (e, user) => {
     if (e)
       return next({
-        log: `Error caught in userController.locateAccessToken. \n Error Message: ${
-          e.errmsg || e
-        }`,
+        log: `Error caught in userController.locateAccessToken. \n Error Message: ${e.errmsg || e}`,
         message: { err: e.errmsg || e },
       });
     if (user) {

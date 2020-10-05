@@ -5,6 +5,7 @@ import NavBar from '../NavBar/NavBar';
 import Hero from '../Hero/Hero';
 import ChooseStack from '../ChooseStack/ChooseStack';
 import CardsList from '../CardsList/CardsList';
+import Faqs from '../Faqs/Faqs';
 import SearchParams from '../SearchParams/SearchParams';
 import RepoButtons from '../RepoButtons/RepoButtons';
 
@@ -186,6 +187,7 @@ const App = () => {
         <ChooseStack>
           <CardsList cards={cards} toggleSelect={toggleSelect} />
         </ChooseStack>
+
         <SearchParams value={value} onChange={handleChange} user={user} />
         <RepoButtons
           isLoggedIn={isLoggedIn}
@@ -193,6 +195,8 @@ const App = () => {
           sendBack={sendBack}
           isDataBack={isDataBack}
         />
+
+        <Faqs />
       </main>
     </div>
   );
