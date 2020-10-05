@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 const RepoButtons = ({ isLoggedIn, connectToGitHub, sendBack, isDataBack, repoLink }) => {
   const handleClick = () => {
@@ -12,12 +12,12 @@ const RepoButtons = ({ isLoggedIn, connectToGitHub, sendBack, isDataBack, repoLi
   return (
     <div className="repoButtons">
       <h2>3. Generate your boilerplate code</h2>
-      <button onClick={handleClick} className="generateButton" disabled={isDataBack}>
+      <button type="button" onClick={handleClick} className="generateButton" disabled={isDataBack}>
         <span>{isLoggedIn ? 'Create new repo' : 'Login to Github'}</span>
       </button>
 
       {isDataBack && (
-        <button className="launchButton">
+        <button type="button" className="launchButton">
           <span>
             <a style={{ textDecoration: 'none' }} href={repoLink} target="_">
               View new repo
