@@ -59,9 +59,11 @@ router.post(
   // userController.locateAccessToken,
   repoController.createNewRepo,
   // save the return config into res.locals
-  repoController.saveRepoToDb,
+  // repoController.saveRepoToDb,
   (req, res, next) => {
-    return res.status(200).send(res.locals.config);
+    const { repo } = res.locals;
+    console.log(repo);
+    return res.status(200).send(repo);
   },
 );
 

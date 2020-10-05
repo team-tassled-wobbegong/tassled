@@ -18,14 +18,13 @@ repoController.createNewRepo = async (req, res, next) => {
       {
         template_owner: 'team-tassled-wobbegong',
         template_repo: 'best-of-the-best',
-        name: 'Another custom template name goes HELLO NEW NAME',
+        name: 'Another custom template name goes HELLO NEW NAME `13`',
         mediaType: {
           previews: ['baptiste'],
         },
       },
     );
     res.locals.repo = response.data;
-
     return next();
   } catch (e) {
     return next({

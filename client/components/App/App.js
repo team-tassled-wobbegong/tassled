@@ -76,7 +76,7 @@ const mockedUser = {
     created_at: '2015-11-01T23:46:39Z',
     updated_at: '2020-10-05T16:56:23Z',
   },
-  access_token: '6604cbcbf99b4e0b4990c6fe090c87e431c183f6',
+  access_token: '4c553972cd4fbe5830d9bd2cdc26efd2f43496b6',
 };
 
 const cardsState = [
@@ -145,7 +145,7 @@ const App = () => {
   const sendBack = () => {
     const selectedTechs = cards.filter((card) => card.isSelected).map((card) => card.tech);
 
-    fetch('/api/github/repos/create', {
+    fetch(`/api/github/repos/create?access_token=${accessToken}`, {
       method: 'post',
       body: JSON.stringify({
         selectedTechs,
