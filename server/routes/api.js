@@ -5,7 +5,6 @@ const router = express.Router();
 const userController = require('../controllers/userController');
 const repoController = require('../controllers/repoController');
 const sessionController = require('../controllers/sessionController');
-const configController = require('../controllers/configController');
 
 router.get('/', (req, res) => {
   res.status(200).json({ message: '/api route ping' });
@@ -24,7 +23,7 @@ router.get(
   userController.checkIfUserInDatabase,
   sessionController.createSession,
   (req, res) => {
-    res.redirect(`/welcome?access_token=${res.locals.access_token}`);
+    res.redirect(`http://localhost:8080/?access_token=${res.locals.access_token}`);
   },
 );
 
@@ -55,13 +54,15 @@ router.post('/github/webhook', (req, res) => {
 });
 
 // GITHUB CREATE REPO
-router.post('/github/repos/create',
-  userController.locateAccessToken,
+router.post(
+  '/github/repos/create',
+  // userController.locateAccessToken,
   repoController.createNewRepo,
   // save the return config into res.locals
-  // repoController.saveRepo,
+  repoController.saveRepoToDb,
   (req, res, next) => {
-  return res.status(200).json(res.locals.repo);
-});
+    return res.status(200).send(res.locals.config);
+  },
+);
 
 module.exports = router;
