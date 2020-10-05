@@ -44,6 +44,19 @@ router.get(
   },
 );
 
+// CREATE A NEW CONFIGURATION TO SEND TO GITHUB
+router.post(
+  '/createconfig',
+    // save the current userInfo to res.locals
+    // create a new Config based on info from the body
+    // Github middleware to create the config
+    // save the return config into res.locals
+  (req, res) => {
+    // send the GH information for the created config
+    res.status(200).send();
+  },
+)
+
 // GITHUB APP CALLBACK
 router.get('/github_app/callback', userController.authenticateUser, userController.requestToken);
 
