@@ -57,9 +57,9 @@ router.post('/github/webhook', (req, res) => {
 // GITHUB CREATE REPO
 router.post('/github/repos/create',
   userController.locateAccessToken,
-  // create a new Config based on info from the body
   repoController.createNewRepo,
   // save the return config into res.locals
+  // repoController.saveRepo,
   (req, res, next) => {
   return res.status(200).json(res.locals.repo);
 });
