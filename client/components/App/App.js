@@ -6,6 +6,7 @@ import Hero from '../Hero/Hero';
 import ChooseStack from '../ChooseStack/ChooseStack';
 import CardsList from '../CardsList/CardsList';
 import GitHubButton from '../GitHubButton';
+import Faqs from '../Faqs/Faqs';
 import SearchParams from '../SearchParams/SearchParams';
 import RepoButtons from '../RepoButtons/RepoButtons';
 
@@ -84,6 +85,7 @@ const App = () => {
         </ChooseStack>
         <SearchParams />
         <RepoButtons />
+        <Faqs />
       </main>
       <GitHubButton />
     </div>
