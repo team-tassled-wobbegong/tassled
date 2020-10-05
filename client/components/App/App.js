@@ -31,6 +31,27 @@ const cardsState = [
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum quos ducimus perferendis doloremque sed quia aperiam suscipit saepe dicta sit pariatur reprehenderit dolorum quod eum eligendi, quam recusandae id libero?',
     isSelected: false,
   },
+  {
+    id: Math.random(),
+    tech: 'Jest',
+    description:
+      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum quos ducimus perferendis doloremque sed quia aperiam suscipit saepe dicta sit pariatur reprehenderit dolorum quod eum eligendi, quam recusandae id libero?',
+    isSelected: false,
+  },
+  {
+    id: Math.random(),
+    tech: 'Node',
+    description:
+      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum quos ducimus perferendis doloremque sed quia aperiam suscipit saepe dicta sit pariatur reprehenderit dolorum quod eum eligendi, quam recusandae id libero?',
+    isSelected: false,
+  },
+  {
+    id: Math.random(),
+    tech: 'Mongo',
+    description:
+      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum quos ducimus perferendis doloremque sed quia aperiam suscipit saepe dicta sit pariatur reprehenderit dolorum quod eum eligendi, quam recusandae id libero?',
+    isSelected: false,
+  },
 ];
 
 const App = () => {
@@ -42,9 +63,20 @@ const App = () => {
     );
   };
 
+  const connectToGitHub = () => {
+    const client_id = '9736e547efbf758aa0dc'; //from GH application settings area
+    const redirect_uri = 'http://localhost:3000/api/oauth/callback/';
+    const state = '9323bb9ce6934469b58303863f8c0d54'; //unique string, hard coded for now.
+    const scope = 'scope=user%20public_repo';
+
+    const params = `client_id=${client_id}&redirect_uri=${redirect_uri}&state=${state}&scope=${scope}&allow_signup=true`;
+
+    window.location.replace(`https://github.com/login/oauth/authorize?${params}`);
+  };
+
   return (
     <div className="App">
-      <NavBar />
+      <NavBar connectToGitHub={connectToGitHub} />
       <main>
         <Hero />
         <ChooseStack>

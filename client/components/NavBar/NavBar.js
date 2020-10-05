@@ -1,10 +1,10 @@
 import React from 'react';
 
-const NavBar = () => (
+const NavBar = ({ connectToGitHub }) => (
   <div className="NavBar">
-    <div className="left">Packaway</div>
+    <div className="left">Tasselled Wobbegong</div>
     <div className="right">
-      <span>Login in with Github</span>
+      <span onClick={connectToGitHub}>Login in with Github</span>
       <i className="fab fa-github"></i>
     </div>
   </div>
