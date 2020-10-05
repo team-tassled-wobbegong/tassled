@@ -1,6 +1,6 @@
 import React from 'react';
 
-function SearchParams({ value, handleChange }) {
+function SearchParams({ value, onChange }) {
   return (
     <div className="search-params">
       <h2>2. Name Your Repo</h2>
@@ -10,7 +10,7 @@ function SearchParams({ value, handleChange }) {
           id="repository"
           value={value}
           placeholder="Repository Name"
-          onChange={handleChange}
+          onChange={onChange}
         />
       </label>
     </div>

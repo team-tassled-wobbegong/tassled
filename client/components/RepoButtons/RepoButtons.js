@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Arrow from '../../svg/Arrow';
 import Launch from '../../svg/Launch';
 
-const RepoButtons = ({ isLoggedIn, connectToGitHub, sendBack, isDataBack }) => {
+const RepoButtons = ({ isLoggedIn, connectToGitHub, sendBack, isDataBack, repoLink }) => {
   const handleClick = () => {
     if (!isLoggedIn) {
       connectToGitHub();
@@ -20,7 +20,12 @@ const RepoButtons = ({ isLoggedIn, connectToGitHub, sendBack, isDataBack }) => {
 
       {isDataBack && (
         <button className="launchButton">
-          <span>View new repo</span>
+          <span>
+            <a href={repoLink} target="_">
+              View new repo
+            </a>
+          </span>
+          <Launch />
         </button>
       )}
     </div>

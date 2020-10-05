@@ -50,7 +50,7 @@ router.get('/github_app/callback', userController.authenticateUser, userControll
 // GITHUB WEBHOOK
 router.post('/github/webhook', (req, res) => {
   console.log({ req });
-  return res.send(200).json({ message: 'pong' });
+  return res.status(200).json({ message: 'pong' });
 });
 
 // GITHUB CREATE REPO
@@ -60,11 +60,11 @@ router.post(
   repoController.createNewRepo,
   // save the return config into res.locals
   // repoController.saveRepoToDb,
-  (req, res, next) => {
-    const { repo } = res.locals;
-    console.log(repo);
-    return res.status(200).send(repo);
-  },
+  // (req, res, next) => {
+  //   const { repo } = res.locals;
+  //   console.log(repo);
+  //   return res.status(200).send(repo);
+  // },
 );
 
 module.exports = router;
