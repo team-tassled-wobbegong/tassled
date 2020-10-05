@@ -35,7 +35,7 @@ sessionController.isLoggedIn = (req, res, next) => {
 sessionController.createSession = (req, res, next) => {
   console.log('sessionController.createSession');
   const cookieId = res.locals.userProfile.id;
-  Session.create(({ cookieId }), (e, session) => {
+  Session.findOneAndUpdate(({ cookieId }),({ cookieId }), {new: true, upsert: true}, (e, session) => {
     if (e) 
       return next({
         log: `Error caught in sessionController.isLoggedIn. \n Error Message: ${
