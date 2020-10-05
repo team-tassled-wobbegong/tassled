@@ -24,7 +24,7 @@ router.get(
   userController.checkIfUserInDatabase,
   sessionController.createSession,
   (req, res) => {
-    res.redirect(`/welcome?access_token=${res.locals.access_token}`);
+    res.redirect(`http://localhost:8080/?access_token=${res.locals.access_token}`);
   },
 );
 
@@ -55,13 +55,15 @@ router.post('/github/webhook', (req, res) => {
 });
 
 // GITHUB CREATE REPO
-router.post('/github/repos/create',
+router.post(
+  '/github/repos/create',
   userController.locateAccessToken,
   repoController.createNewRepo,
   // save the return config into res.locals
   // repoController.saveRepo,
   (req, res, next) => {
-  return res.status(200).json(res.locals.repo);
-});
+    return res.status(200).json(res.locals.repo);
+  },
+);
 
 module.exports = router;
