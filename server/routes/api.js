@@ -4,6 +4,8 @@ const router = express.Router();
 
 const userController = require('../controllers/userController');
 const repoController = require('../controllers/repoController');
+const sessionController = require('../controllers/sessionController');
+const configController = require('../controllers/configController');
 
 router.get('/', (req, res) => {
   res.status(200).json({ message: '/api route ping' });
@@ -20,9 +22,26 @@ router.get(
   userController.requestToken,
   userController.getUserProfile,
   userController.checkIfUserInDatabase,
-  userController.addUserToDatabase,
+  sessionController.createSession,
   (req, res) => {
     res.redirect(`/welcome?access_token=${res.locals.access_token}`);
+  },
+);
+
+// CHECK FOR AN ACTIVE SESSION AND RETURN USER INFO
+router.get(
+  '/oath/checksession',
+  // checks if there is active session and the user exists
+  sessionController.isLoggedIn,
+  // find the user info and save the access token to res.locals.access_token
+  userController.locateAccessToken,
+  // get updated user profile
+  userController.getUserProfile,
+  // get/update user data and send it back to front end
+  userController.checkIfUserInDatabase,
+  sessionController.createSession,
+  (req, res) => {
+    res.status(200).send(res.locals.ghUserInfo);
   },
 );
 
@@ -36,7 +55,12 @@ router.post('/github/webhook', (req, res) => {
 });
 
 // GITHUB CREATE REPO
-router.post('/github/repos/create', repoController.createNewRepo, (req, res, next) => {
+router.post('/github/repos/create',
+  userController.locateAccessToken,
+  repoController.createNewRepo,
+  // save the return config into res.locals
+  // repoController.saveRepo,
+  (req, res, next) => {
   return res.status(200).json(res.locals.repo);
 });
 

@@ -2,7 +2,10 @@
 @import '../Hero/hero';
 @import '../CardsList/cards_list';
 @import '../Card/card';
+@import '../ChooseStack/choose_stack';
+@import '../SearchParams/SearchParams';
+@import '../RepoButtons/RepoButtons';
 
 main {
-  padding: 0 2rem;
+  padding: 0 5rem;
 }

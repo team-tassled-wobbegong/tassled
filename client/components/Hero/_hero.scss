@@ -5,10 +5,17 @@
   height: 300px;
 
   .left {
-    width: 70%;
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+    }
+
+    width: 50%;
   }
 
   .right {
-    width: 30%;
+    display: flex;
+    justify-content: center;
+    width: 50%;
   }
 }
