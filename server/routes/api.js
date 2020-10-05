@@ -4,6 +4,7 @@ const router = express.Router();
 
 const userController = require('../controllers/userController');
 const sessionController = require('../controllers/sessionController');
+const configController = require('../controllers/configController');
 
 router.get('/', (req, res) => {
   res.status(200).json({ message: '/api route ping' });
