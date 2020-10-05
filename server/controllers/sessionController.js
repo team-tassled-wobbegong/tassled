@@ -7,28 +7,27 @@ const sessionController = {};
 
 // Verify whether there is a currently valid session
 sessionController.isLoggedIn = (req, res, next) => {
-  console.log('sessionController.isLoggedIn');
-  if(cookieId in req.cookies) {
+  if(req.cookies.cookieId) {
     // if the current user has a cookie with a cookieId
     const cookieId = req.cookies.cookieId;
-    
     // find the user in our DB
     Session.findOne({ cookieId }, (e, session) => {
       if (e) 
-        return next({
-          log: `Error caught in sessionController.isLoggedIn. \n Error Message: ${
-            e.errmsg || e
-          }`,
-          message: { err: e.errmsg || e },
-        });
+      return next({
+        log: `Error caught in sessionController.isLoggedIn. \n Error Message: ${
+          e.errmsg || e
+        }`,
+        message: { err: e.errmsg || e },
+      });
       if (session) {
+        res.locals.cookieId = cookieId;
         return next();
       }
-      res.clearCookie('cookieId').status(200).send();
+      return res.clearCookie('cookieId').status(200).send();
     });
   } else {
     // no cookies are present
-    res.status(200).send();
+    return res.status(200).send();
   }
 }
 
