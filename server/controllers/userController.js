@@ -100,22 +100,24 @@ userController.checkIfUserInDatabase = async (req, res, next) => {
   });
 };
 
+userController.locateAccessToken = async (req, res, next) => {
+  const id = res.locals.cookieId
 
-// THE ABOVE MIDDLEWARE UPSERTS NOW, SO NO NEED FOR THIS MIDDLEWARE
-// userController.addUserToDatabase = async (req, res, next) => {
-//   const user = res.locals.userProfile;
-//   // store entire returned object into DB as backup
-//   user.full_object = Object.assign({}, res.locals.userProfile);
-//   user.access_token = res.locals.access_token;
-
-//   User.create(( user ), (e, user) => {
-//     if (e) return next({
-//       log: `Error caught in userController.addUserToDatabase. \n Error Message: ${e.errmsg || e}`,
-//       message: { err: e.errmsg || e },
-//     });
-//     return next();
-//   });
-// };
-
+  User.findOne({ id }, (e, user) => {
+    if (e)
+      return next({
+        log: `Error caught in userController.locateAccessToken. \n Error Message: ${
+          e.errmsg || e
+        }`,
+        message: { err: e.errmsg || e },
+      });
+    if (user) {
+      // a user exists in our database save it to res.locals so we can return it
+      res.locals.userProfile = user;
+      res.locals.access_token = user.access_token;
+      return next();
+    }
+  });
+};
 
 module.exports = userController;

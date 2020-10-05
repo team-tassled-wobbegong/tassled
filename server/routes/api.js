@@ -31,6 +31,8 @@ router.get(
   '/checksession',
   // checks if there is active session and the user exists
   sessionController.isLoggedIn,
+  // find the user info and save the access token to res.locals.access_token
+  userController.locateAccessToken,
   // get/update user data and send it back to front end
   userController.checkIfUserInDatabase,
   (req, res) => {
