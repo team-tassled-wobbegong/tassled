@@ -22,7 +22,7 @@ const usersSchema = new Schema({
   access_token: String,
   _created_at: { type: Date, default: Date.now },
   full_object: Object,
-  configurations: [{ type: Schema.Types.ObjectId, ref: 'UserConfig' }]
+  configurations: [{ type: Schema.Types.ObjectId, ref: 'configs' }]
 });
 
 // exports all the models in an object to be used in the controller
