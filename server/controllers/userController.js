@@ -101,6 +101,7 @@ userController.checkIfUserInDatabase = async (req, res, next) => {
 };
 
 userController.locateAccessToken = async (req, res, next) => {
+  console.log('userController.locateAccessToken');
   const id = res.locals.cookieId
 
   User.findOne({ id }, (e, user) => {
