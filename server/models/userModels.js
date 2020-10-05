@@ -10,7 +10,7 @@ const usersSchema = new Schema({
   gh_url: String,
   access_token: String,
   created_at: { type: Date, default: Date.now },
-  configurations: [{ type: Schema.Types.ObjectId, ref: 'UserConfig' }]
+  configurations: [{ type: Schema.Types.ObjectId, ref: 'UserConfigs' }]
 });
 
 // exports all the models in an object to be used in the controller

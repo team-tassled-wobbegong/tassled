@@ -6,6 +6,7 @@ import Hero from '../Hero/Hero';
 import ChooseStack from '../ChooseStack/ChooseStack';
 import CardsList from '../CardsList/CardsList';
 import GitHubButton from '../GitHubButton';
+import Faqs from '../Faqs/Faqs';
 
 const cardsState = [
   {
@@ -48,6 +49,7 @@ const App = () => {
         <ChooseStack>
           <CardsList cards={cards} toggleSelect={toggleSelect} />
         </ChooseStack>
+      <Faqs />
       </main>
       <GitHubButton />
     </div>
