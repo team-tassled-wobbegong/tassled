@@ -15,42 +15,28 @@ const cardsState = [
     id: Math.random(),
     tech: 'React',
     description:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum quos ducimus perferendis doloremque sed quia aperiam suscipit saepe dicta sit pariatur reprehenderit dolorum quod eum eligendi, quam recusandae id libero?',
-    isSelected: false,
-  },
-  {
-    id: Math.random(),
-    tech: 'Redux',
-    description:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum quos ducimus perferendis doloremque sed quia aperiam suscipit saepe dicta sit pariatur reprehenderit dolorum quod eum eligendi, quam recusandae id libero?',
-    isSelected: false,
-  },
-  {
-    id: Math.random(),
-    tech: 'Express',
-    description:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum quos ducimus perferendis doloremque sed quia aperiam suscipit saepe dicta sit pariatur reprehenderit dolorum quod eum eligendi, quam recusandae id libero?',
-    isSelected: false,
-  },
-  {
-    id: Math.random(),
-    tech: 'Jest',
-    description:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum quos ducimus perferendis doloremque sed quia aperiam suscipit saepe dicta sit pariatur reprehenderit dolorum quod eum eligendi, quam recusandae id libero?',
+      'React is the most popular front-end JavaScript library in the field of web development. Get the webpack and starter scripts to run your application.',
     isSelected: false,
   },
   {
     id: Math.random(),
     tech: 'Node',
     description:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum quos ducimus perferendis doloremque sed quia aperiam suscipit saepe dicta sit pariatur reprehenderit dolorum quod eum eligendi, quam recusandae id libero?',
+      'Node.js is a JavaScript runtime built on Chrome’s V8 JavaScript engine. Node.js uses an event-driven, non-blocking I/O model that makes it lightweight and efficient',
     isSelected: false,
   },
   {
     id: Math.random(),
-    tech: 'Mongo',
+    tech: 'Express',
     description:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum quos ducimus perferendis doloremque sed quia aperiam suscipit saepe dicta sit pariatur reprehenderit dolorum quod eum eligendi, quam recusandae id libero?',
+      'Express is a minimal and flexible Node.js web application framework that provides a robust set of features for web and mobile applications. APIs.',
+    isSelected: false,
+  },
+  {
+    id: Math.random(),
+    tech: 'Jest',
+    description:
+      'Jest is a delightful JavaScript Testing Framework with a focus on simplicity. Jest manages metadata about your source code to run only the relevant test files when a source code file is changed.',
     isSelected: false,
   },
 ];

@@ -1,20 +1,39 @@
+.repoButtons {
+  margin-bottom: 5rem;
+}
+
 .repoButtons button {
-  background-color: #0f62fe;
-  padding: 10px 25px;
+  background-color: #0054f0;
+  padding: 12px 16px;
   color: white;
-  border: #333 1px solid;
-  border-radius: 5px;
-  margin: 1.5em;
   display: block;
+  font-size: 1rem;
+  width: 18rem;
+  border: none;
   cursor: pointer;
+}
+
+.repoButtons h2 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+.button-flex {
+display: flex;
+  justify-content: center;
+  align-items: stretch; 
 }
 
 .generateButton span {
   padding-right: 1em;
+  font-size: 1.2rem;
+  position: relative;
 }
 
 .launchButton span {
   padding-right: 1.5em;
+  font-size: 1.2rem;
+  position: relative;
 }
 
 .repoButtons .launchButton {
@@ -22,7 +41,9 @@
 }
 
 .repoButtons button:hover {
-  background-color: #122622;
+  background-color: #f1c21b;
+  color: #262626;
+  transition: 0.3s ease;
 }
 
 .repoButtons button:active {

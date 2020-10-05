@@ -4,6 +4,14 @@
   box-sizing: border-box;
 }
 
+.faqs-wrapper {
+  margin-bottom: 5rem;
+}
+.faqs-wrapper h2 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
 .faqs {
   width: 100%;
   max-width: 1200px;
@@ -12,7 +20,7 @@
 }
 
 .faqs .faq {
-  padding: 16px;
+  padding: 2rem 0;
   border-top: 2px solid white;
 
 }
@@ -39,7 +47,6 @@
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
-
   transition: all 0.4s ease;
 
 }
@@ -62,4 +69,9 @@
 .faqs .faq.open .faq-answer {
   opacity: 1;
   max-height: 1000px;
+}
+
+.faq-answer {
+  line-height: 1.5;
+  max-width: 1000px;
 }
