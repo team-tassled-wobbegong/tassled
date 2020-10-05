@@ -7,6 +7,7 @@ import ChooseStack from '../ChooseStack/ChooseStack';
 import CardsList from '../CardsList/CardsList';
 import GitHubButton from '../GitHubButton';
 import SearchParams from '../SearchParams/SearchParams';
+import RepoButtons from '../RepoButtons/RepoButtons';
 
 const cardsState = [
   {
@@ -50,6 +51,7 @@ const App = () => {
           <CardsList cards={cards} toggleSelect={toggleSelect} />
         </ChooseStack>
         <SearchParams />
+        <RepoButtons />
       </main>
       <GitHubButton />
     </div>
