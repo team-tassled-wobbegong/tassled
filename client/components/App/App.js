@@ -6,6 +6,7 @@ import Hero from '../Hero/Hero';
 import ChooseStack from '../ChooseStack/ChooseStack';
 import CardsList from '../CardsList/CardsList';
 import GitHubButton from '../GitHubButton';
+import SearchParams from '../SearchParams/SearchParams';
 
 const cardsState = [
   {
@@ -48,6 +49,7 @@ const App = () => {
         <ChooseStack>
           <CardsList cards={cards} toggleSelect={toggleSelect} />
         </ChooseStack>
+        <SearchParams />
       </main>
       <GitHubButton />
     </div>
