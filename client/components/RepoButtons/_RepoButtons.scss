@@ -1,0 +1,34 @@
+.repoButtons button {
+  background-color: #0f62fe;
+  padding: 10px 25px;
+  color: white;
+  border: #333 1px solid;
+  border-radius: 5px;
+  margin: 1.5em;
+  display: block;
+  cursor: pointer;
+}
+
+.generateButton span {
+  padding-right: 1em;
+}
+
+.launchButton span {
+  padding-right: 1.5em;
+}
+
+.repoButtons .launchButton {
+  background-color: #42be65;
+}
+
+.repoButtons button:hover {
+  background-color: #122622;
+}
+
+.repoButtons button:active {
+  background-color: #5f1d22;
+}
+
+.repoButtons button:focus {
+  border: 1px solid cornflowerblue;
+}
