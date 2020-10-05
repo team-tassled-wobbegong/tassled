@@ -4,7 +4,7 @@ function SearchParams() {
   const [repository, setRepository] = useState('');
   return (
     <div className="search-params">
-      <h2>2. Name your repo.</h2>
+      <h2>2. Name your repo..</h2>
       <label htmlFor="repository">
         <input
           type="text"
