@@ -3,14 +3,26 @@ const Schema = mongoose.Schema;
 
 // sets a schema for 'users'
 const usersSchema = new Schema({
-  user_name: { type: String, unique: true, required: true },
-  first_name: String,
-  last_name: String,
-  avatar: String,
-  gh_url: String,
+  login: String,
+  id: { type: Number, unique: true, required: true },
+  avatar_url: String,
+  url: String,
+  html_url: String,
+  name: String,
+  company: String,
+  blog: String,
+  location: String,
+  email: String,
+  hireable: String,
+  bio: String,
+  twitter_username: String,
+  public_repos: String,
+  followers: String,
+  following: String,
   access_token: String,
-  created_at: { type: Date, default: Date.now },
-  configurations: [{ type: Schema.Types.ObjectId, ref: 'UserConfig' }]
+  _created_at: { type: Date, default: Date.now },
+  full_object: Object,
+  configurations: [{ type: Schema.Types.ObjectId, ref: 'configs' }]
 });
 
 // exports all the models in an object to be used in the controller

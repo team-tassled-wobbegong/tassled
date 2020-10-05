@@ -4,6 +4,8 @@ const router = express.Router();
 
 const userController = require('../controllers/userController');
 const repoController = require('../controllers/repoController');
+const sessionController = require('../controllers/sessionController');
+const configController = require('../controllers/configController');
 
 router.get('/', (req, res) => {
   res.status(200).json({ message: '/api route ping' });
@@ -20,11 +22,41 @@ router.get(
   userController.requestToken,
   userController.getUserProfile,
   userController.checkIfUserInDatabase,
-  userController.addUserToDatabase,
+  // sessionController.createSession,
   (req, res) => {
     res.redirect(`/welcome?access_token=${res.locals.access_token}`);
   },
 );
+
+// CHECK FOR AN ACTIVE SESSION AND RETURN USER INFO
+router.get(
+  '/oath/checksession',
+  // checks if there is active session and the user exists
+  sessionController.isLoggedIn,
+  // find the user info and save the access token to res.locals.access_token
+  userController.locateAccessToken,
+  // get updated user profile
+  userController.getUserProfile,
+  // get/update user data and send it back to front end
+  userController.checkIfUserInDatabase,
+  sessionController.createSession,
+  (req, res) => {
+    res.status(200).send(res.locals.ghUserInfo);
+  },
+);
+
+// CREATE A NEW CONFIGURATION TO SEND TO GITHUB
+router.post(
+  '/createconfig',
+    // save the current userInfo to res.locals
+    // create a new Config based on info from the body
+    // Github middleware to create the config
+    // save the return config into res.locals
+  (req, res) => {
+    // send the GH information for the created config
+    res.status(200).send();
+  },
+)
 
 // GITHUB APP CALLBACK
 router.get('/github_app/callback', userController.authenticateUser, userController.requestToken);

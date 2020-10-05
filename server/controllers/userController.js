@@ -62,12 +62,9 @@ userController.getUserProfile = async (req, res, next) => {
       },
     };
 
-    const userProfile = await axios(config).then(function (response) {
-      console.log({ response });
-      // console.log(JSON.stringify(response.data));
-    });
+    const userProfile = await axios(config);
 
-    res.locals.userProfile = userProfile;
+    res.locals.userProfile = userProfile.data;
 
     return next();
   } catch (e) {
@@ -78,32 +75,18 @@ userController.getUserProfile = async (req, res, next) => {
   }
 };
 
-userController.addUserToDatabase = async (req, res, next) => {
-  // temporary placeholder for adding user
-  const user = {
-    user_name: 'test',
-    first_name: 'temp',
-    last_name: 'temp',
-    avatar: 'temp',
-    gh_url: 'temp',
-    access_token: res.locals.access_token,
-  };
-  User.create(user, (e, user) => {
-    if (e)
-      return next({
-        log: `Error caught in userController.addUserToDatabase. \n Error Message: ${e.errmsg || e}`,
-        message: { err: e.errmsg || e },
-      });
-    res.locals.user = user;
-    // res.locals.userID = user._id;
-    return next();
-  });
-};
-
+// IF A USER EXISTS => UPDATE THE USER INFO
+// IF A USER DOESNT EXIST => CREATE IT
 userController.checkIfUserInDatabase = async (req, res, next) => {
-  // temporary placeholder user_name that comes from response
-  const user_name = 'test';
-  User.findOne({ user_name }, (e, user) => {
+  console.log('checkIfUserInDatabase');
+  const id = res.locals.userProfile.id;
+
+  const user = res.locals.userProfile;
+  user.full_object = Object.assign({}, res.locals.userProfile);
+  user.access_token = res.locals.access_token;
+
+  User.findOneAndUpdate({ id }, { user }, {new: true}, (e, createdUser) => {
+    console.log('findOneAndUpdate');
     if (e)
       return next({
         log: `Error caught in userController.checkIfUserInDatabase. \n Error Message: ${
@@ -111,13 +94,49 @@ userController.checkIfUserInDatabase = async (req, res, next) => {
         }`,
         message: { err: e.errmsg || e },
       });
+    if (createdUser) {
+      // a user exists in our database save it to res.locals so we can return it
+      res.locals.ghUserInfo = user;
+      return next();
+    }
+    else {
+      User.create({ user },(e, createdUser) => {
+        //if a user does not exist, create it
+        console.log('create');
+        console.log(user);
+        if (e) 
+          return next({
+            log: `Error caught in userController.checkIfUserInDatabase (CREATE). \n Error Message: ${
+              e.errmsg || e
+            }`,
+            message: { err: e.errmsg || e },
+          });
+        res.locals.ghUserInfo = createdUser;
+        console.log(createdUser);
+        return next();
+      });
+    }
+  });
+}
+
+userController.locateAccessToken = async (req, res, next) => {
+  console.log('userController.locateAccessToken');
+  const id = res.locals.cookieId
+  console.log(`cookieId: ${id}`);
+
+  User.findOne({ id }, (e, user) => {
+    if (e)
+      return next({
+        log: `Error caught in userController.locateAccessToken. \n Error Message: ${
+          e.errmsg || e
+        }`,
+        message: { err: e.errmsg || e },
+      });
     if (user) {
-      // a user exists in our database
-      res.locals.user = user;
-      res.locals.userID = user._id;
-      res.redirect(`/welcome?access_token=${res.locals.access_token}`);
-    } else {
-      // go to next middle ware to create a new user
+      // a user exists in our database save it to res.locals so we can return it
+      res.locals.userProfile = user;
+      res.locals.access_token = user.access_token;
+      console.log (user);
       return next();
     }
   });
