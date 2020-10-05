@@ -28,15 +28,18 @@ router.get(
 
 // CHECK FOR AN ACTIVE SESSION AND RETURN USER INFO
 router.get(
-  '/checksession',
+  '/oath/checksession',
   // checks if there is active session and the user exists
   sessionController.isLoggedIn,
   // find the user info and save the access token to res.locals.access_token
   userController.locateAccessToken,
+  // get updated user profile
+  userController.getUserProfile,
   // get/update user data and send it back to front end
   userController.checkIfUserInDatabase,
+  sessionController.createSession,
   (req, res) => {
-    res.status(200).send();
+    res.status(200).send(res.locals.ghUserInfo);
   },
 );
 
