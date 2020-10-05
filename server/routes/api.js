@@ -44,6 +44,7 @@ router.get(
   },
 );
 
+// LOGOUT ROUTE => NOT CURRENTLY IN USE
 router.get('/logout', (req, res) => {
   res.clearCookie('cookieId').status(200).send();
 });

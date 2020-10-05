@@ -17,9 +17,9 @@ const RepoButtons = ({ isLoggedIn, connectToGitHub, sendBack, isDataBack, repoLi
       </button>
 
       {isDataBack && (
-        <button type="button" className="launchButton">
+        <button type="button" className="launchButton" style={{ marginTop: '1rem' }}>
           <span>
-            <a style={{ textDecoration: 'none' }} href={repoLink} target="_">
+            <a style={{ textDecoration: 'none', color: 'white' }} href={repoLink} target="_">
               View new repo
             </a>
           </span>
@@ -28,22 +28,5 @@ const RepoButtons = ({ isLoggedIn, connectToGitHub, sendBack, isDataBack, repoLi
     </div>
   );
 };
-
-/**
- * not login
- * -> show blue button, but in disabled mode / do not show green one
- * login
- * -> show blue button / do not show green one
- *
- * hit blue button
- * -> when we receives stuff from github, show green button and hide blue button
- */
-
-/**
- * not login
- * button text "please login"
- * login
- * button text "generate boilerplate"
- */
 
 export default RepoButtons;
