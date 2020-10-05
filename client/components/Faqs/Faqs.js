@@ -23,7 +23,7 @@ const Faqs = () => {
     },
     {
       question: 'Can I use without a Github?',
-      answer: 'As we would need access to your Github account to create the repository, we will need your Github for authentication.',
+      answer: 'As we will be creating a new repository in your account, we will need access to your Github account for authentication.',
       open: false,
     },
 
