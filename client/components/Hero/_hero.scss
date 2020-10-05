@@ -1,12 +1,12 @@
 .Intro {
   display: flex;
   align-items: center;
-
   height: 300px;
+  margin-bottom: 3rem;
 
   .left {
     h1 {
-      font-size: 3rem;
+      font-size: 3.25rem;
       margin-bottom: 1.5rem;
     }
 
@@ -18,4 +18,9 @@
     justify-content: center;
     width: 50%;
   }
+}
+
+.hero-sub {
+  font-size: 1.25rem;
+  line-height: 1.5;
 }

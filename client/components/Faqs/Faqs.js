@@ -8,22 +8,22 @@ const Faqs = () => {
   const [faqs, setFaqs] = useState([
     {
       question: 'How do I use Tesseled?',
-      answer: 'in 3 steps',
+      answer: `Simply choose the tech stack that you wish to have for your project, name your repo and click 'Create a Repo. The starter code will be created as a new repository in your Github account.`,
       open: true,
     },
     {
       question: 'What is the tech stack that I can generate with Tesseled?',
-      answer: 'list steps',
+      answer: 'Currently, we have React, Express, Node and Jest. There will be more coming soon.' ,
       open: false,
     },
     {
-      question: 'What happens after I click generate?',
-      answer: 'check your github',
+      question: `What happens after I click 'Create a Repo'?`,
+      answer: 'The starter code that you based on your selected tech stack will be created as a new repository in your Github account.',
       open: false,
     },
     {
-      question: 'Can I use without a github?',
-      answer: 'No',
+      question: 'Can I use without a Github?',
+      answer: 'As we will be creating a new repository in your account, we will need access to your Github account for authentication.',
       open: false,
     },
 
@@ -42,7 +42,7 @@ const Faqs = () => {
 
   return (
     <div className='faqs-wrapper'>
-      <h1>FAQs</h1>
+      <h2>FAQs</h2>
       <div className='faqs'>
         {faqs.map((faq, i) => (
           <FaqOpen faq={faq} index={i} toggleFAQ={toggleFAQ} />

@@ -15,7 +15,7 @@ const RepoButtons = ({ isLoggedIn, connectToGitHub, sendBack, isDataBack, repoLi
     <div className="repoButtons">
       <h2>3. Generate your boilerplate code</h2>
       <button onClick={handleClick} className="generateButton" disabled={isDataBack}>
-        <span>{isLoggedIn ? 'Create new repo' : 'Login to Github'}</span> <Arrow />
+        <span>{isLoggedIn ? 'Create new repo' : 'Login to Github'}</span>
       </button>
 
       {isDataBack && (
