@@ -5,16 +5,11 @@ const Config = require('../models/configModels.js');
 const repoController = {};
 
 repoController.createNewRepo = async (req, res, next) => {
-  // HARD CODED ACCESS TOKEN, NEEDS TO BE FIXED
-  console.log('repoController.createNewRepo');
   const { repoName } = req.query;
-  // INITIALIZE GITHUB OCTOKIT
+  // INSTANTIATE GITHUB OCTOKIT API
   const octokit = new Octokit({ auth: req.query.access_token });
-  console.log(req.query);
   // CREATE REPO FROM TEMPLATE
   try {
-    console.log('sending request');
-    console.log({ octokit });
     const response = await octokit.request(
       'POST /repos/{template_owner}/{template_repo}/generate',
       {
@@ -26,12 +21,9 @@ repoController.createNewRepo = async (req, res, next) => {
         },
       },
     );
-    console.log({ response });
-    // res.locals.repo = response.data;
     res.status(200).json(response.data);
     return next();
   } catch (e) {
-    console.log(e);
     return next({
       log: `Error caught in repoController.createNewRepo. \n Error Message: ${e.errmsg || e}`,
       message: { err: e.errmsg || e },
@@ -39,9 +31,8 @@ repoController.createNewRepo = async (req, res, next) => {
   }
 };
 
+// SAVES CREATE REPO RESPONSE AS DOCUMENT TO DB
 repoController.saveRepoToDb = async (req, res, next) => {
-  // creates new repo document and saves it to database
-
   try {
     const repo = res.locals.repo;
     const configItem = {
@@ -50,7 +41,9 @@ repoController.saveRepoToDb = async (req, res, next) => {
       gh_repo: repo.url,
       generated_repo_object: repo,
     };
-    const configuredItem = await Config.create(configItem);
+
+    await Config.create(configItem);
+
     return next();
   } catch (e) {
     return next({
