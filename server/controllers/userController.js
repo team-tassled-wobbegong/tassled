@@ -5,13 +5,16 @@ const User = require('../models/userModels');
 const userController = {};
 
 userController.authenticateUser = async (req, res, next) => {
-  // TBD: CREATE RANDOM UNGUESSABLE STRING, HARD CODED FOR NOW
+  /*
+    TODO: CREATE RANDOM UNGUESSABLE STRING, HARD CODED FOR NOW
+    This random string is passed to Github during initial OAuth request
+  */
   const randomString = '9323bb9ce6934469b58303863f8c0d54';
 
   try {
     const { code, state } = req.query;
 
-    // VERIFY REQUEST FOR SECURITY
+    // VERIFY REQUEST FOR OAUTH SECURITY.
     if (!state === randomString) {
       return res.status(401).send('Unauthorized request');
     }
@@ -77,7 +80,6 @@ userController.getUserProfile = async (req, res, next) => {
 };
 
 userController.checkIfUserInDatabase = async (req, res, next) => {
-  console.log('checkIfUserInDatabase');
   const id = res.locals.userProfile.id;
 
   const user = res.locals.userProfile;
@@ -85,7 +87,6 @@ userController.checkIfUserInDatabase = async (req, res, next) => {
   user.access_token = res.locals.access_token;
 
   User.findOneAndUpdate({ id }, user, { new: true, upsert: true }, (e, createdUser) => {
-    console.log('findOneAndUpdate');
     if (e)
       return next({
         log: `Error caught in userController.checkIfUserInDatabase. \n Error Message: ${
@@ -102,7 +103,6 @@ userController.checkIfUserInDatabase = async (req, res, next) => {
 };
 
 userController.locateAccessToken = async (req, res, next) => {
-  console.log('userController.locateAccessToken');
   const id = res.locals.cookieId || req.cookies.cookieId;
 
   User.findOne({ id }, (e, user) => {

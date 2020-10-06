@@ -6,15 +6,7 @@ const userController = require('../controllers/userController');
 const repoController = require('../controllers/repoController');
 const sessionController = require('../controllers/sessionController');
 
-router.get('/', (req, res) => {
-  res.status(200).json({ message: '/api route ping' });
-});
-router.post('/', (req, res) => {
-  console.log({ req });
-  res.status(200).json({ message: 'pong' });
-});
-
-// THIS IS THE MAIN CALLBACK URL FOR GITHUB OAUTH
+// CALLBACK FOR GITHUB OAUTH
 router.get(
   '/oauth/callback',
   userController.authenticateUser,
@@ -27,16 +19,12 @@ router.get(
   },
 );
 
-// CHECK FOR AN ACTIVE SESSION AND RETURN USER INFO
+// CHECKS IF USER IS ALREADY LOGGED IN ON INITIAL PAGE LOAD
 router.get(
   '/oath/checksession',
-  // checks if there is active session and the user exists
   sessionController.isLoggedIn,
-  // find the user info and save the access token to res.locals.access_token
   userController.locateAccessToken,
-  // get updated user profile
   userController.getUserProfile,
-  // get/update user data and send it back to front end
   userController.checkIfUserInDatabase,
   sessionController.createSession,
   (req, res) => {
@@ -44,32 +32,12 @@ router.get(
   },
 );
 
-// LOGOUT ROUTE => NOT CURRENTLY IN USE
+// LOGOUT ROUTE => NOT IMPLEMENTED YET
 router.get('/logout', (req, res) => {
   res.clearCookie('cookieId').status(200).send();
 });
 
-// GITHUB APP CALLBACK
-router.get('/github_app/callback', userController.authenticateUser, userController.requestToken);
-
-// GITHUB WEBHOOK
-router.post('/github/webhook', (req, res) => {
-  console.log({ req });
-  return res.status(200).json({ message: 'pong' });
-});
-
-// GITHUB CREATE REPO
-router.post(
-  '/github/repos/create',
-  // userController.locateAccessToken,
-  repoController.createNewRepo,
-  // save the return config into res.locals
-  // repoController.saveRepoToDb,
-  // (req, res, next) => {
-  //   const { repo } = res.locals;
-  //   console.log(repo);
-  //   return res.status(200).send(repo);
-  // },
-);
+// CREATES A NEW REPO ON GITHUB
+router.post('/github/repos/create', repoController.createNewRepo);
 
 module.exports = router;
